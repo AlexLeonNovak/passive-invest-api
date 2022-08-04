@@ -2,13 +2,10 @@ import { NestFactory } from '@nestjs/core';
 import { useContainer } from 'class-validator';
 import * as cookieParser from 'cookie-parser';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { ValidationPipe } from '@nestjs/common';
 import { AppModule } from './app.module';
 
-const {
-  PORT = 5000,
-  NODE_ENV = 'development',
-  COOKIE_SECRET = 'cookie_secret',
-} = process.env;
+const { PORT = 5000, NODE_ENV = 'development', COOKIE_SECRET = 'cookie_secret' } = process.env;
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
@@ -21,6 +18,7 @@ async function bootstrap() {
   app.setGlobalPrefix('api/v1');
   app.use(cookieParser(COOKIE_SECRET));
 
+  app.useGlobalPipes(new ValidationPipe({ transform: true }));
   useContainer(app.select(AppModule), { fallbackOnErrors: true });
 
   const swaggerConfig = new DocumentBuilder()
