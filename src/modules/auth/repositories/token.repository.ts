@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { UserTokenEntity } from '../entities/user-token.entity';
-import { UserEntity } from '../../users/entities/user.entity';
+import { Uuid } from '../../../core/value-objects/uuid';
 
 @Injectable()
 export class TokenRepository {
@@ -22,17 +22,17 @@ export class TokenRepository {
     });
   }
 
-  async saveToken(user: UserEntity, refreshToken): Promise<UserTokenEntity> {
+  async saveToken(uuid: Uuid, refreshToken): Promise<UserTokenEntity> {
     let tokenData = await this.tokenRepo.findOne({
       where: {
         user: {
-          id: user.id,
+          uuid,
         },
       },
     });
     if (!tokenData) {
       tokenData = new UserTokenEntity();
-      tokenData.user = user;
+      tokenData.user.uuid = uuid;
     }
     tokenData.refreshToken = refreshToken;
     return this.tokenRepo.save(tokenData);

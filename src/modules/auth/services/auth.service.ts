@@ -1,5 +1,4 @@
 import { Injectable } from '@nestjs/common';
-// import { UserRepository } from '../../users/repositories/user.repository';
 import { UserEntity } from '../../users/entities/user.entity';
 import { Uuid } from '../../../core/value-objects/uuid';
 import { UserRole, UserStatuses } from '../../../core/enums/user.enum';
@@ -22,14 +21,9 @@ export interface IUserRegisterInfo {
 
 @Injectable()
 export class AuthService {
-  constructor(
-    // private readonly userRepo: UserRepository,
-    private readonly passwordService: PasswordService,
-    private readonly tokenService: TokenService,
-  ) {}
+  constructor(private readonly passwordService: PasswordService, private readonly tokenService: TokenService) {}
 
   async createRegisterInfo(email: string, password: string): Promise<IUserRegisterInfo> {
-    // console.log('AuthService.create');
     const passwordHash = await this.passwordService.hash(password);
     return {
       uuid: Uuid.generate(),

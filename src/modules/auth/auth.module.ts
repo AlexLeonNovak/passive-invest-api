@@ -4,7 +4,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { CqrsModule } from '@nestjs/cqrs';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserTokenEntity } from './entities/user-token.entity';
-import { SendEmailHandler } from './commands/send-email/send-email.handler';
+import { SendEmailHandler } from '../smtp-mailer/commands/send-email/send-email.handler';
 import { AuthController } from './controllers/auth.controller';
 import { PasswordService } from './services/password.service';
 import { AuthService } from './services/auth.service';
@@ -14,7 +14,7 @@ import { JwtStrategy } from './strategies/jwt.strategy';
 import { JwtRefreshStrategy } from './strategies/jwt-refresh.strategy';
 import { LoginHandler } from './commands/login/login.handler';
 import { RegisterHandler } from './commands/register/register.handler';
-// import { UsersModule } from '../users/users.module';
+import { AuthSagas } from './sagas/auth.sagas';
 
 const CommandHandlers = [LoginHandler, RegisterHandler, SendEmailHandler];
 const EventHandlers = [];
@@ -49,6 +49,7 @@ const QueryHandlers = [];
     JwtStrategy,
     JwtRefreshStrategy,
     ConfigService,
+    AuthSagas,
   ],
 })
 export class AuthModule {}

@@ -2,7 +2,7 @@ import { Injectable, Logger } from '@nestjs/common';
 import { ICommand, ofType, Saga } from '@nestjs/cqrs';
 import { delay, map, Observable } from 'rxjs';
 import { UserCreatedEvent } from '../events/user-created/user-created.event';
-import { SendEmailCommand } from '../../auth/commands/send-email/send-email.command';
+import { SendEmailCommand } from '../../smtp-mailer/commands/send-email/send-email.command';
 
 @Injectable()
 export class UserSaga {
