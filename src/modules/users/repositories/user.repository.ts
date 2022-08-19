@@ -33,4 +33,8 @@ export class UserRepository {
   async create(user: Partial<UserEntity>) {
     return this.repo.save(user);
   }
+
+  async update(uuid: Uuid, update: Partial<UserEntity | undefined>) {
+    return this.repo.save({ uuid, ...update });
+  }
 }

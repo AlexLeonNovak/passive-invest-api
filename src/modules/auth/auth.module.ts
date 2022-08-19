@@ -4,7 +4,6 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { CqrsModule } from '@nestjs/cqrs';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserTokenEntity } from './entities/user-token.entity';
-import { SendEmailHandler } from '../smtp-mailer/commands/send-email/send-email.handler';
 import { AuthController } from './controllers/auth.controller';
 import { PasswordService } from './services/password.service';
 import { AuthService } from './services/auth.service';
@@ -15,15 +14,19 @@ import { JwtRefreshStrategy } from './strategies/jwt-refresh.strategy';
 import { LoginHandler } from './commands/login/login.handler';
 import { RegisterHandler } from './commands/register/register.handler';
 import { AuthSagas } from './sagas/auth.sagas';
+import { ActivateHandler } from './commands/activate/activate.handler';
+import { ActivationCodeService } from './services/activation-code.service';
+import { EmailActivationCodesRepository } from './repositories/email-activation-codes.repository';
+import { UserEmailActivationCodesEntity } from './entities/user-email-activation-codes.entity';
 
-const CommandHandlers = [LoginHandler, RegisterHandler, SendEmailHandler];
+const CommandHandlers = [LoginHandler, RegisterHandler, ActivateHandler];
 const EventHandlers = [];
 const QueryHandlers = [];
 
 @Module({
   imports: [
     CqrsModule,
-    TypeOrmModule.forFeature([UserTokenEntity]),
+    TypeOrmModule.forFeature([UserTokenEntity, UserEmailActivationCodesEntity]),
     JwtModule.registerAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
@@ -50,6 +53,8 @@ const QueryHandlers = [];
     JwtRefreshStrategy,
     ConfigService,
     AuthSagas,
+    EmailActivationCodesRepository,
+    ActivationCodeService,
   ],
 })
 export class AuthModule {}

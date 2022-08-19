@@ -22,17 +22,13 @@ export class TokenRepository {
     });
   }
 
-  async saveToken(uuid: Uuid, refreshToken): Promise<UserTokenEntity> {
+  async saveToken(userUuid: Uuid, refreshToken): Promise<UserTokenEntity> {
     let tokenData = await this.tokenRepo.findOne({
-      where: {
-        user: {
-          uuid,
-        },
-      },
+      where: { userUuid },
     });
     if (!tokenData) {
       tokenData = new UserTokenEntity();
-      tokenData.user.uuid = uuid;
+      tokenData.userUuid = userUuid;
     }
     tokenData.refreshToken = refreshToken;
     return this.tokenRepo.save(tokenData);

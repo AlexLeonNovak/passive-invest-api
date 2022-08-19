@@ -8,6 +8,6 @@ export class GetByEmailHandler implements IQueryHandler<GetByEmailQuery> {
   constructor(private readonly userRepo: UserRepository) {}
 
   async execute({ email }: GetByEmailQuery): Promise<UserEntity | undefined> {
-    return this.userRepo.findOneByEmail(email);
+    return await this.userRepo.findOneByEmail(email);
   }
 }

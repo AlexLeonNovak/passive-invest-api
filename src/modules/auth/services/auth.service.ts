@@ -41,6 +41,10 @@ export class AuthService {
     if (!isPasswordEqual) {
       return false;
     }
+    return this.getAuthPayload(user);
+  }
+
+  async getAuthPayload(user: UserEntity) {
     const { uuid, email, roles } = user;
     const { accessToken, refreshToken } = await this.tokenService.generateTokens({ uuid, email, roles });
     return { user, refreshToken, accessToken };
