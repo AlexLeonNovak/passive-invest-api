@@ -10,10 +10,10 @@ import { UsersModule } from './modules/users/users.module';
 import { TransformInterceptor } from './core/interceptors/transform.interceptor';
 import { SmtpMailerModule } from './modules/smtp-mailer/smtp-mailer.module';
 
-const AppModules = [UsersModule];
+const AppModules = [UsersModule, DatabaseModule, AppRoutingModule, SmtpMailerModule];
 
 @Module({
-  imports: [ConfigModule.forRoot(), DatabaseModule, AppRoutingModule, CqrsModule, ...AppModules, SmtpMailerModule],
+  imports: [ConfigModule.forRoot(), CqrsModule, ...AppModules],
   exports: [],
   controllers: [AppController],
   providers: [

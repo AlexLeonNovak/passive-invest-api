@@ -1,12 +1,16 @@
-import { Column, Entity, Index } from 'typeorm';
-import { Uuid } from '../../../core/value-objects/uuid';
+import { Column, Entity, Index, JoinColumn, ManyToOne } from 'typeorm';
 import { BaseEntity } from '../../../core/entity/base.entity';
+import { UserEntity } from '../../users/entities/user.entity';
 
 @Entity('user_email_activation_codes')
 export class UserEmailActivationCodesEntity extends BaseEntity {
-  @Column({ type: 'uuid', unique: true })
+  @ManyToOne(() => UserEntity, user => user.id)
+  @JoinColumn()
+  user: UserEntity;
+
+  @Column()
   @Index()
-  userUuid: Uuid;
+  userId: string;
 
   @Column({ type: 'int' })
   @Index()

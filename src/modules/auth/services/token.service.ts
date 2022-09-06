@@ -24,7 +24,7 @@ export class TokenService {
       secret: this.jwtRefreshSecret,
       expiresIn: this.jwtRefreshExp,
     });
-    await this.tokenRepo.saveToken(payload.uuid, refreshToken);
+    await this.tokenRepo.saveToken(payload.id, refreshToken);
     return { accessToken, refreshToken };
   }
 

@@ -6,13 +6,6 @@ import { map } from 'rxjs/operators';
 @Injectable()
 export class TransformInterceptor implements NestInterceptor {
   intercept(context: ExecutionContext, next: CallHandler<any>): Observable<any> | Promise<Observable<any>> {
-    return next.handle().pipe(
-      map(data => {
-        console.log('before instanceToPlain', data);
-        const res = instanceToPlain(data);
-        console.log('instanceToPlain', res);
-        return res;
-      }),
-    );
+    return next.handle().pipe(map(data => instanceToPlain(data)));
   }
 }

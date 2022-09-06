@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+    db:
+        image: postgres
+        restart: always
+        ports:
+            - '5432:5432'
+        volumes:
+            - pgdata:/data/postgres
+        env_file:
+            - .env
+        networks:
+            - postgres
+
+networks:
+    postgres:
+        driver: bridge
+
+volumes:
+    pgdata:

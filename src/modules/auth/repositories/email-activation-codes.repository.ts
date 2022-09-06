@@ -2,7 +2,6 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UserEmailActivationCodesEntity } from '../entities/user-email-activation-codes.entity';
 import { Repository } from 'typeorm';
-import { Uuid } from '../../../core/value-objects/uuid';
 
 @Injectable()
 export class EmailActivationCodesRepository {
@@ -11,22 +10,22 @@ export class EmailActivationCodesRepository {
     private readonly codesRepo: Repository<UserEmailActivationCodesEntity>,
   ) {}
 
-  async saveCode(userUuid: Uuid, code: number) {
-    let userCode = await this.getByUserUuid(userUuid);
+  async saveCode(userId: string, code: number) {
+    let userCode = await this.getByUserId(userId);
     if (!userCode) {
       userCode = new UserEmailActivationCodesEntity();
-      userCode.userUuid = userUuid;
+      userCode.userId = userId;
     }
     userCode.code = code;
     userCode.createdAt = new Date();
     return this.codesRepo.save(userCode);
   }
 
-  getByUserUuid(userUuid: Uuid) {
-    return this.codesRepo.findOne({ where: { userUuid } });
+  getByUserId(userId: string) {
+    return this.codesRepo.findOne({ where: { userId } });
   }
 
-  async remove(userUuid: Uuid) {
-    await this.codesRepo.delete({ userUuid });
+  async remove(userId: string) {
+    await this.codesRepo.delete({ userId });
   }
 }

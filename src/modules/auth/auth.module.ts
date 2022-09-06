@@ -11,15 +11,14 @@ import { TokenRepository } from './repositories/token.repository';
 import { TokenService } from './services/token.service';
 import { JwtStrategy } from './strategies/jwt.strategy';
 import { JwtRefreshStrategy } from './strategies/jwt-refresh.strategy';
-import { LoginHandler } from './commands/login/login.handler';
-import { RegisterHandler } from './commands/register/register.handler';
 import { AuthSagas } from './sagas/auth.sagas';
 import { ActivateHandler } from './commands/activate/activate.handler';
 import { ActivationCodeService } from './services/activation-code.service';
 import { EmailActivationCodesRepository } from './repositories/email-activation-codes.repository';
 import { UserEmailActivationCodesEntity } from './entities/user-email-activation-codes.entity';
+import { JoinByEmailHandler } from './commands/join-by-email/join-by-email.handler';
 
-const CommandHandlers = [LoginHandler, RegisterHandler, ActivateHandler];
+const CommandHandlers = [JoinByEmailHandler, ActivateHandler];
 const EventHandlers = [];
 const QueryHandlers = [];
 
@@ -37,7 +36,6 @@ const QueryHandlers = [];
         },
       }),
     }),
-    // UsersModule,
   ],
   exports: [TypeOrmModule],
   controllers: [AuthController],

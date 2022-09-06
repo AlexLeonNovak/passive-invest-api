@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
 import { UserEntity } from '../../users/entities/user.entity';
-import { Uuid } from '../../../core/value-objects/uuid';
 import { UserRole, UserStatuses } from '../../../core/enums/user.enum';
 import { PasswordService } from './password.service';
 import { TokenService } from './token.service';
@@ -12,7 +11,7 @@ export interface IUserAuthPayload {
 }
 
 export interface IUserRegisterInfo {
-  uuid: Uuid;
+  id?: string;
   email: string;
   passwordHash: string;
   status: UserStatuses;
@@ -26,14 +25,11 @@ export class AuthService {
   async createRegisterInfo(email: string, password: string): Promise<IUserRegisterInfo> {
     const passwordHash = await this.passwordService.hash(password);
     return {
-      uuid: Uuid.generate(),
       email,
       passwordHash,
       status: UserStatuses.NEW,
       roles: UserRole.USER,
     };
-    // const newUser = await this.userRepo.create(user);
-    // return { user: newUser };
   }
 
   async login(user: UserEntity, password: string): Promise<IUserAuthPayload | false> {
@@ -45,8 +41,8 @@ export class AuthService {
   }
 
   async getAuthPayload(user: UserEntity) {
-    const { uuid, email, roles } = user;
-    const { accessToken, refreshToken } = await this.tokenService.generateTokens({ uuid, email, roles });
+    const { id, email, roles } = user;
+    const { accessToken, refreshToken } = await this.tokenService.generateTokens({ id, email, roles });
     return { user, refreshToken, accessToken };
   }
 }

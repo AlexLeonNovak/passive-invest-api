@@ -10,8 +10,8 @@ export class UserEntity extends BaseEntity {
   @Column({ unique: true })
   email: string;
 
-  @Column()
   @Exclude({ toPlainOnly: true })
+  @Column()
   passwordHash: string;
 
   @ApiProperty()

@@ -1,7 +1,6 @@
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { UserEntity } from '../entities/user.entity';
-import { Uuid } from '../../../core/value-objects/uuid';
 import { Injectable } from '@nestjs/common';
 
 @Injectable()
@@ -18,23 +17,23 @@ export class UserRepository {
     });
   }
 
-  findOneByUuid(uuid: Uuid) {
+  findOneById(id: string) {
     return this.repo.findOne({
-      where: { uuid },
+      where: { id },
     });
   }
 
   async exists(email: string): Promise<boolean> {
-    // console.log('UserRepository.exists');
     const found = await this.findOneByEmail(email);
     return !!found;
   }
 
-  async create(user: Partial<UserEntity>) {
-    return this.repo.save(user);
+  create(user: Partial<UserEntity>): Promise<UserEntity> {
+    const newUser = this.repo.create(user);
+    return this.repo.save(newUser);
   }
 
-  async update(uuid: Uuid, update: Partial<UserEntity | undefined>) {
-    return this.repo.save({ uuid, ...update });
+  async update(id: string, update: Partial<UserEntity | undefined>): Promise<UserEntity> {
+    return this.repo.save({ id, ...update });
   }
 }

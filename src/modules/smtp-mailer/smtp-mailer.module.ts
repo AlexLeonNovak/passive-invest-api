@@ -9,7 +9,7 @@ import { SendEmailHandler } from './commands/send-email/send-email.handler';
 import { SendConfirmEmailHandler } from './commands/send-confirm-email/send-confirm-email.handler';
 
 const CommandHandlers = [SendEmailHandler, SendConfirmEmailHandler];
-console.log(join(__dirname, './templates/'));
+
 @Module({
   imports: [
     CqrsModule,

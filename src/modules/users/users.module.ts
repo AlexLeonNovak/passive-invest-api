@@ -9,11 +9,11 @@ import { UserCreatedHandler } from './events/user-created/user-created.handler';
 import { CreateUserHandler } from './commands/create-user/create-user.handler';
 import { GetByEmailHandler } from './queries/get-by-email/get-by-email.handler';
 import { UpdateUserHandler } from './commands/update-user/update-user.handler';
-import { GetByUuidHandler } from './queries/get-by-uuid/get-by-uuid.handler';
+import { GetByIdHandler } from './queries/get-by-id/get-by-id.handler';
 
 const CommandHandlers = [CreateUserHandler, UpdateUserHandler];
 const EventHandlers = [UserCreatedHandler];
-const QueryHandlers = [GetByEmailHandler, GetByUuidHandler];
+const QueryHandlers = [GetByEmailHandler, GetByIdHandler];
 
 @Module({
   imports: [CqrsModule, PassportModule, TypeOrmModule.forFeature([UserEntity])],

@@ -7,7 +7,7 @@ import { UserEntity } from '../../entities/user.entity';
 export class UpdateUserHandler implements ICommandHandler<UpdateUserCommand> {
   constructor(private readonly userRepo: UserRepository) {}
 
-  async execute({ uuid, update }: UpdateUserCommand): Promise<UserEntity> {
-    return this.userRepo.update(uuid, update);
+  async execute({ id, update }: UpdateUserCommand): Promise<UserEntity> {
+    return this.userRepo.update(id, update);
   }
 }

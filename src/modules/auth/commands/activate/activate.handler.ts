@@ -22,11 +22,11 @@ export class ActivateHandler implements ICommandHandler<ActivateCommand> {
     if (!user) {
       throw new UnauthorizedException('Activation code expired');
     }
-    const isCodeValid = await this.codeService.isCodeExpire(user.uuid, code);
+    const isCodeValid = await this.codeService.isCodeExpire(user.id, code);
     if (!isCodeValid) {
       throw new UnauthorizedException('Activation code expired');
     }
-    user = await this.commandBus.execute(new UpdateUserCommand(user.uuid, { status: UserStatuses.ACTIVE }));
+    user = await this.commandBus.execute(new UpdateUserCommand(user.id, { status: UserStatuses.ACTIVE }));
     return this.authService.getAuthPayload(user);
   }
 }

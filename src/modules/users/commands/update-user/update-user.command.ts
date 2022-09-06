@@ -1,5 +1,4 @@
 import { UserRole, UserStatuses } from '../../../../core/enums/user.enum';
-import { Uuid } from '../../../../core/value-objects/uuid';
 
 export interface IUpdateUserCommand {
   roles?: UserRole;
@@ -7,5 +6,5 @@ export interface IUpdateUserCommand {
 }
 
 export class UpdateUserCommand {
-  constructor(public readonly uuid: Uuid, public readonly update: IUpdateUserCommand) {}
+  constructor(public readonly id: string, public readonly update: IUpdateUserCommand) {}
 }

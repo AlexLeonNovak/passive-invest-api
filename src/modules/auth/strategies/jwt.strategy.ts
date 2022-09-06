@@ -1,13 +1,12 @@
 import { ExtractJwt, Strategy } from 'passport-jwt';
 import { PassportStrategy } from '@nestjs/passport';
 import { Injectable, UnauthorizedException } from '@nestjs/common';
-import { Uuid } from '../../../core/value-objects/uuid';
 import { UserRole } from '../../../core/enums/user.enum';
 import { QueryBus } from '@nestjs/cqrs';
-import { GetByUuidQuery } from '../../users/queries/get-by-uuid/get-by-uuid.query';
+import { GetByIdQuery } from '../../users/queries/get-by-id/get-by-id.query';
 
 export interface JwtPayload {
-  uuid: Uuid;
+  id: string;
   email: string;
   roles: UserRole;
 }
@@ -22,9 +21,9 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     });
   }
 
-  async validate({ uuid }: JwtPayload) {
-    const user = await this.queryBus.execute(new GetByUuidQuery(uuid));
-    if (!user || !user.isActive()) {
+  async validate({ id }: JwtPayload) {
+    const user = await this.queryBus.execute(new GetByIdQuery(id));
+    if (!user) {
       throw new UnauthorizedException();
     }
     return user;
