@@ -17,6 +17,7 @@ import { ActivationCodeService } from './services/activation-code.service';
 import { EmailActivationCodesRepository } from './repositories/email-activation-codes.repository';
 import { UserEmailActivationCodesEntity } from './entities/user-email-activation-codes.entity';
 import { JoinByEmailHandler } from './commands/join-by-email/join-by-email.handler';
+import { PassportModule } from '@nestjs/passport';
 
 const CommandHandlers = [JoinByEmailHandler, ActivateHandler];
 const EventHandlers = [];
@@ -25,6 +26,7 @@ const QueryHandlers = [];
 @Module({
   imports: [
     CqrsModule,
+    PassportModule,
     TypeOrmModule.forFeature([UserTokenEntity, UserEmailActivationCodesEntity]),
     JwtModule.registerAsync({
       imports: [ConfigModule],

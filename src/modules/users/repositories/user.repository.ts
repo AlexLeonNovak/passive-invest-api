@@ -34,6 +34,7 @@ export class UserRepository {
   }
 
   async update(id: string, update: Partial<UserEntity | undefined>): Promise<UserEntity> {
-    return this.repo.save({ id, ...update });
+    const newUser = this.repo.create({ id, ...update });
+    return this.repo.save(newUser);
   }
 }

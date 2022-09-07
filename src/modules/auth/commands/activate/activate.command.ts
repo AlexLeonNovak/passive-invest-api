@@ -1,5 +1,5 @@
 export interface IActivateCommand {
-  email: string;
+  id: string;
   code: number;
 }
 

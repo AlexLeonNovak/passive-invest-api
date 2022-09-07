@@ -26,7 +26,6 @@ export class MailService {
       template: 'confirm-email',
       context: {
         code,
-        link: `https://localhost:5000/account/activate/${code}`,
         expire: process.env.CONFIRM_EMAIL_EXPIRE_MINUTES,
       },
     });
