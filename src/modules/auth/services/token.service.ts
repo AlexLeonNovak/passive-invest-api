@@ -45,4 +45,8 @@ export class TokenService {
       return null;
     }
   }
+
+  async removeToken(refreshToken: string): Promise<void> {
+    await this.tokenRepo.removeToken(refreshToken);
+  }
 }

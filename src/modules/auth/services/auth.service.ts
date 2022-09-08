@@ -45,4 +45,8 @@ export class AuthService {
     const { accessToken, refreshToken } = await this.tokenService.generateTokens({ id, email, roles });
     return { user, refreshToken, accessToken };
   }
+
+  async logout(refreshToken: string) {
+    await this.tokenService.removeToken(refreshToken);
+  }
 }

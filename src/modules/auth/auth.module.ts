@@ -18,8 +18,10 @@ import { EmailActivationCodesRepository } from './repositories/email-activation-
 import { UserEmailActivationCodesEntity } from './entities/user-email-activation-codes.entity';
 import { JoinByEmailHandler } from './commands/join-by-email/join-by-email.handler';
 import { PassportModule } from '@nestjs/passport';
+import { LogoutHandler } from './commands/logout/logout.handler';
+import { RefreshHandler } from './commands/refresh/refresh.handler';
 
-const CommandHandlers = [JoinByEmailHandler, ActivateHandler];
+const CommandHandlers = [JoinByEmailHandler, LogoutHandler, RefreshHandler, ActivateHandler];
 const EventHandlers = [];
 const QueryHandlers = [];
 

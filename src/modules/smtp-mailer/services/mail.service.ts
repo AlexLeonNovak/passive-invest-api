@@ -2,15 +2,6 @@ import { Injectable } from '@nestjs/common';
 import { MailerService } from '@nestjs-modules/mailer';
 import { ISendMailOptions } from '@nestjs-modules/mailer/dist/interfaces/send-mail-options.interface';
 
-export interface IMail {
-  to: string;
-  subject: string;
-  html?: string;
-  context?: {
-    [key: string]: any;
-  };
-}
-
 @Injectable()
 export class MailService {
   constructor(private readonly mailerService: MailerService) {}
