@@ -10,12 +10,12 @@ export class UserRepository {
     private repo: Repository<UserEntity>,
   ) {}
 
-  findOneByEmail(email: string): Promise<UserEntity | undefined> {
-    // console.log('UserRepository.findOneByEmail');
-    return this.repo.findOne({
-      where: { email },
-    });
-  }
+  // findOneByEmail(email: string): Promise<UserEntity | undefined> {
+  //   // console.log('UserRepository.findOneByEmail');
+  //   return this.repo.findOne({
+  //     where: { email },
+  //   });
+  // }
 
   findOneById(id: string) {
     return this.repo.findOne({
@@ -23,10 +23,10 @@ export class UserRepository {
     });
   }
 
-  async exists(email: string): Promise<boolean> {
-    const found = await this.findOneByEmail(email);
-    return !!found;
-  }
+  // async exists(email: string): Promise<boolean> {
+  //   const found = await this.findOneByEmail(email);
+  //   return !!found;
+  // }
 
   create(user: Partial<UserEntity>): Promise<UserEntity> {
     const newUser = this.repo.create(user);

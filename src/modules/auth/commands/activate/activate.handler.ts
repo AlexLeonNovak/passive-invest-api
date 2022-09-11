@@ -4,7 +4,7 @@ import { BadRequestException } from '@nestjs/common';
 import { ActivationCodeService } from '../../services/activation-code.service';
 import { AuthService } from '../../services/auth.service';
 import { UpdateUserCommand } from '../../../users/commands/update-user/update-user.command';
-import { UserStatuses } from '../../../../core/enums/user.enum';
+import { UserStatus } from '../../../../core/enums/user.enum';
 
 @CommandHandler(ActivateCommand)
 export class ActivateHandler implements ICommandHandler<ActivateCommand> {
@@ -22,7 +22,7 @@ export class ActivateHandler implements ICommandHandler<ActivateCommand> {
       throw new BadRequestException('Activation code expired');
     }
     await this.codeService.clear(id);
-    const user = await this.commandBus.execute(new UpdateUserCommand(id, { status: UserStatuses.ACTIVE }));
+    const user = await this.commandBus.execute(new UpdateUserCommand(id, { status: UserStatus.ACTIVE }));
     return this.authService.getAuthPayload(user);
   }
 }

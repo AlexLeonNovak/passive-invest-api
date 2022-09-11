@@ -1,12 +1,15 @@
-import { UserRole, UserStatuses } from '../../../../core/enums/user.enum';
+import { UserRole, UserStatus } from '../../../../core/enums/user.enum';
 
 export interface ICreateUserCommand {
-  email: string;
-  passwordHash: string;
   roles: UserRole;
-  status: UserStatuses;
+  status: UserStatus;
 }
 
 export class CreateUserCommand {
-  constructor(public readonly data: ICreateUserCommand) {}
+  constructor(public readonly data?: ICreateUserCommand) {
+    this.data = {
+      roles: UserRole.USER,
+      status: UserStatus.NEW,
+    };
+  }
 }

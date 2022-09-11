@@ -7,7 +7,7 @@ export class UserCreatedHandler implements IEventHandler<UserCreatedEvent> {
   private readonly logger = new Logger(UserCreatedHandler.name);
 
   async handle(event: UserCreatedEvent): Promise<void> {
-    const { email, id } = event.user;
-    this.logger.log(`New user ${id.toString()} <${email}>`);
+    const { id } = event.user;
+    this.logger.log(`New user ${id.toString()}`);
   }
 }

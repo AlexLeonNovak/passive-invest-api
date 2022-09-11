@@ -41,7 +41,7 @@ export class JwtRefreshStrategy extends PassportStrategy(Strategy, 'jwt-refresh-
       throw new UnauthorizedException();
     }
 
-    const userToken = await this.tokenRepo.findByRefreshToken(refreshToken);
+    const userToken = await this.tokenRepo.findOne(refreshToken);
     if (!userToken?.user?.isActive()) {
       throw new UnauthorizedException();
     }

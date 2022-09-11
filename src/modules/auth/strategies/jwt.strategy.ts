@@ -7,7 +7,6 @@ import { GetByIdQuery } from '../../users/queries/get-by-id/get-by-id.query';
 
 export interface JwtPayload {
   id: string;
-  email: string;
   roles: UserRole;
 }
 

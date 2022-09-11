@@ -20,6 +20,9 @@ import { JoinByEmailHandler } from './commands/join-by-email/join-by-email.handl
 import { PassportModule } from '@nestjs/passport';
 import { LogoutHandler } from './commands/logout/logout.handler';
 import { RefreshHandler } from './commands/refresh/refresh.handler';
+import { UserAuthSourcesEntity } from './entities/user-auth-sources.entity';
+import { AuthSourcesService } from './services/auth-sources.service';
+import { AuthSourceRepository } from './repositories/auth-source.repository';
 
 const CommandHandlers = [JoinByEmailHandler, LogoutHandler, RefreshHandler, ActivateHandler];
 const EventHandlers = [];
@@ -29,7 +32,7 @@ const QueryHandlers = [];
   imports: [
     CqrsModule,
     PassportModule,
-    TypeOrmModule.forFeature([UserTokenEntity, UserEmailActivationCodesEntity]),
+    TypeOrmModule.forFeature([UserTokenEntity, UserEmailActivationCodesEntity, UserAuthSourcesEntity]),
     JwtModule.registerAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
@@ -57,6 +60,8 @@ const QueryHandlers = [];
     AuthSagas,
     EmailActivationCodesRepository,
     ActivationCodeService,
+    AuthSourcesService,
+    AuthSourceRepository,
   ],
 })
 export class AuthModule {}

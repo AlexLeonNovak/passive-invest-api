@@ -1,4 +1,4 @@
-export enum UserStatuses {
+export enum UserStatus {
   NEW = 'new',
   WAIT = 'wait',
   ACTIVE = 'active',
@@ -10,4 +10,9 @@ export enum UserStatuses {
 export enum UserRole {
   ADMIN = 'admin',
   USER = 'user',
+}
+
+export enum UserAuthProvider {
+  LOCAL = 'local',
+  GOOGLE = 'google',
 }

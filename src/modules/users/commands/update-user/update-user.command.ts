@@ -1,8 +1,8 @@
-import { UserRole, UserStatuses } from '../../../../core/enums/user.enum';
+import { UserRole, UserStatus } from '../../../../core/enums/user.enum';
 
 export interface IUpdateUserCommand {
   roles?: UserRole;
-  status?: UserStatuses;
+  status?: UserStatus;
 }
 
 export class UpdateUserCommand {

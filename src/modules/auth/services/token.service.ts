@@ -24,7 +24,7 @@ export class TokenService {
       secret: this.jwtRefreshSecret,
       expiresIn: this.jwtRefreshExp,
     });
-    await this.tokenRepo.saveToken(payload.id, refreshToken);
+    await this.tokenRepo.save(payload.id, refreshToken);
     return { accessToken, refreshToken };
   }
 
@@ -47,6 +47,6 @@ export class TokenService {
   }
 
   async removeToken(refreshToken: string): Promise<void> {
-    await this.tokenRepo.removeToken(refreshToken);
+    await this.tokenRepo.remove(refreshToken);
   }
 }
