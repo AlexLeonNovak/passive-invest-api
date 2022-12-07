@@ -1,7 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { ICommand, ofType, Saga } from '@nestjs/cqrs';
 import { mergeMap, Observable } from 'rxjs';
-import { UserRegisteredByEmailEvent } from '../events/user-registered-by-email/user-registered-by-email.event';
+import { UserRegisteredByEmailEvent } from '../../auth/events/user-registered-by-email/user-registered-by-email.event';
 import { SendConfirmEmailCommand } from '../../smtp-mailer/commands/send-confirm-email/send-confirm-email.command';
 import { ActivationCodeService } from '../services/activation-code.service';
 
