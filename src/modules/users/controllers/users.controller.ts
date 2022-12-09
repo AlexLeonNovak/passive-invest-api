@@ -1,6 +1,9 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete, Res } from '@nestjs/common';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
 // TODO: Add guard for ADMIN
+@ApiTags('Users')
+@ApiBearerAuth()
 @Controller('/users')
 export class UsersController {
   // @Post()
